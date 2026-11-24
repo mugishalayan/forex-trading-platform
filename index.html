@@ -3,63 +3,326 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forex Trading Platform</title>
+
+<title>Mugisha Didier | Layering & Scalping Strategies</title>
+
+<meta name="description" content="Discover automated Forex trading strategies by Mugisha Didier. A product of Get Rich Online Center Ltd.">
+
 <style>
-body {
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
     font-family: Arial, sans-serif;
     background: #07111f;
-    color: white;
-    text-align: center;
+    color: #ffffff;
+    line-height: 1.6;
 }
+
 header {
-    padding: 25px;
-    background: #101f33;
+    background: #0b192b;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #26364a;
 }
-h1 { color: #00d9a6; }
-.hero { padding: 70px 20px; }
-button {
-    background: #00d9a6;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 8px;
+
+.logo {
+    color: #d9ad50;
+    font-size: 22px;
     font-weight: bold;
 }
+
+.logo span {
+    display: block;
+    color: white;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #d9ad50;
+}
+
+.hero {
+    padding: 110px 8%;
+    text-align: center;
+    background: linear-gradient(135deg, #07111f, #142b43);
+}
+
+.hero h1 {
+    font-size: 43px;
+    color: #d9ad50;
+    margin-bottom: 15px;
+}
+
+.hero h2 {
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto;
+    color: #c3ccd8;
+}
+
+.button {
+    display: inline-block;
+    background: #d9ad50;
+    color: #07111f;
+    padding: 13px 28px;
+    margin-top: 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.button:hover {
+    background: #ffffff;
+}
+
+section {
+    padding: 75px 8%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 30px;
+    color: #d9ad50;
+    margin-bottom: 35px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
 .card {
-    background: #14253b;
-    margin: 20px;
-    padding: 25px;
-    border-radius: 12px;
+    background: #112238;
+    padding: 28px;
+    border: 1px solid #263b53;
+    border-radius: 9px;
+}
+
+.card h3 {
+    color: #d9ad50;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #c3ccd8;
+}
+
+.about {
+    background: #0d1b2d;
+    text-align: center;
+}
+
+.about p {
+    max-width: 750px;
+    margin: auto;
+    color: #c3ccd8;
+}
+
+.steps {
+    max-width: 800px;
+    margin: auto;
+}
+
+.steps p {
+    margin: 15px 0;
+    background: #112238;
+    padding: 18px;
+    border-radius: 5px;
+}
+
+.contact {
+    text-align: center;
+}
+
+.contact p {
+    color: #c3ccd8;
+}
+
+.warning {
+    background: #251e13;
+    border: 1px solid #9c7835;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 6px;
+    color: #f2dcae;
+}
+
+footer {
+    text-align: center;
+    padding: 30px 15px;
+    background: #050c15;
+    color: #aab5c2;
+    font-size: 13px;
+}
+
+footer strong {
+    color: #d9ad50;
+}
+
+@media(max-width: 650px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        text-align: center;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 7px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero h2 {
+        font-size: 19px;
+    }
 }
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>FOREX TRADING PLATFORM</h1>
-<p>Smart Automated Trading With MT5 Expert Advisors</p>
+    <div class="logo">
+        MUGISHA DIDIER
+        <span>LAYERING & SCALPING STRATEGIES</span>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#strategies">Strategies</a>
+        <a href="#how">How It Works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
 </header>
 
-<section class="hero">
-<h2>Welcome to Our Trading Platform</h2>
-<p>Discover powerful automated trading solutions.</p>
-<button>Get Started</button>
+<section class="hero" id="home">
+    <h1>SMARTER AUTOMATED TRADING</h1>
+
+    <h2>Layering & Scalping Strategies</h2>
+
+    <p>
+        Explore automated Forex trading strategies developed
+        by Mugisha Didier, with a focus on trading technology,
+        strategy development and risk management.
+    </p>
+
+    <a href="#strategies" class="button">Explore Our Strategies</a>
 </section>
 
-<div class="card">
-<h2>Our Expert Advisors</h2>
-<p>Professional MT5 Automated Trading Solutions.</p>
-</div>
+<section id="strategies">
+    <h2 class="section-title">Our Trading Strategies</h2>
 
-<div class="card">
-<h2>Client Dashboard</h2>
-<p>Manage your trading accounts and performance.</p>
-</div>
+    <div class="cards">
 
-<div class="card">
-<h2>Contact Us</h2>
-<p>Welcome to our Forex Trading Platform.</p>
-</div>
+        <div class="card">
+            <h3>Layering Strategies</h3>
+            <p>
+                Automated trading approaches designed to manage
+                multiple trading entries according to predefined
+                strategy rules.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Scalping Strategies</h3>
+            <p>
+                Trading systems designed to identify and manage
+                short-term market opportunities.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Risk Management</h3>
+            <p>
+                Trading tools and rules focused on position sizing,
+                exposure management and risk awareness.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section id="how" class="about">
+    <h2 class="section-title">How It Works</h2>
+
+    <div class="steps">
+        <p><strong>01.</strong> Discover our automated trading strategies.</p>
+        <p><strong>02.</strong> Learn about the supported trading systems and requirements.</p>
+        <p><strong>03.</strong> Contact our team for information about access and setup.</p>
+        <p><strong>04.</strong> Understand the risks before using any trading system.</p>
+    </div>
+</section>
+
+<section id="about">
+    <h2 class="section-title">About Us</h2>
+
+    <p>
+        MUGISHA DIDIER | LAYERING & SCALPING STRATEGIES
+        is a trading technology initiative focused on the
+        development of automated Forex trading systems
+        and trading strategy solutions.
+        <br><br>
+        Our goal is to make trading technology more accessible
+        through structured tools and responsible risk awareness.
+    </p>
+</section>
+
+<section class="contact" id="contact">
+    <h2 class="section-title">Get In Touch</h2>
+
+    <p>
+        Interested in our trading strategies or services?
+        Contact information and client registration services
+        will be available in a future release.
+    </p>
+
+    <div class="warning">
+        <strong>Risk Disclaimer:</strong>
+        Forex and CFD trading involve significant risk and may
+        result in the loss of your invested capital.
+        Past performance does not guarantee future results.
+        No profits or returns are guaranteed.
+    </div>
+</section>
+
+<footer>
+    <p>
+        <strong>MUGISHA DIDIER</strong><br>
+        LAYERING & SCALPING STRATEGIES
+    </p>
+
+    <p>A product of GET RICH ONLINE CENTER LTD</p>
+
+    <p>© 2026 All Rights Reserved.</p>
+</footer>
 
 </body>
-</html>
+                </html>
