@@ -203,7 +203,8 @@ footer p {
 }
 </style>
 </head>
-
+    
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <body>
 
 <header>
@@ -235,6 +236,7 @@ footer p {
         Explore Our Strategies
     </a>
 </section>
+    
 <section id="strategies">
     <h2 class="section-title">Our Trading Strategies</h2>
 
@@ -267,6 +269,7 @@ footer p {
 
     </div>
 </section>
+    
 <section id="how" class="about">
     <h2 class="section-title">How It Works</h2>
 
@@ -277,6 +280,7 @@ footer p {
         <p>04. Understand the risks before using any trading system.</p>
     </div>
 </section>
+    
 <section id="about">
     <h2 class="section-title">About Us</h2>
 
@@ -290,6 +294,7 @@ footer p {
         through structured tools and responsible risk awareness.
     </p>
 </section>
+    
 <section class="contact" id="contact">
     <h2 class="section-title">Contact Us</h2>
 
@@ -326,6 +331,7 @@ footer p {
         No profits or returns are guaranteed.
     </div>
 </section>
+    
 <footer>
     <p>
         COPYRIGHT © 2021–2026 MUGISHA DIDIER |
@@ -338,5 +344,120 @@ footer p {
     </p>
 </footer>
 
+    <section id="client-access">
+  <h2>Client Account</h2>
+
+  <h3>Create Account</h3>
+  <input id="full_name" type="text" placeholder="Full Name">
+  <input id="phone" type="tel" placeholder="Phone Number">
+  <input id="country" type="text" placeholder="Country">
+  <input id="signup_email" type="email" placeholder="Email">
+  <input id="signup_password" type="password" placeholder="Password">
+  <button onclick="signUp()">Create Account</button>
+
+  <hr>
+
+  <h3>Login</h3>
+  <input id="login_email" type="email" placeholder="Email">
+  <input id="login_password" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+
+  <p id="auth_message"></p>
+    </section>
+    
+    <script>
+const SUPABASE_URL = "https://uvioemebqsyhwypuamoh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Bhi5QSR3miLqZChqJC9KWQ_pNf41Aqy";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+        async function signUp() {
+  const full_name = document.getElementById("full_name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const country = document.getElementById("country").value.trim();
+  const email = document.getElementById("signup_email").value.trim();
+  const password = document.getElementById("signup_password").value;
+
+  const message = document.getElementById("auth_message");
+
+  if (!full_name || !phone || !country || !email || !password) {
+    message.textContent = "Please fill in all fields.";
+    return;
+  }
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { full_name, phone, country }
+    }
+  });
+
+  if (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  if (data.session) {
+    message.textContent = "Account created successfully. You can now login.";
+  } else {
+    message.textContent =
+      "Account created! Please check your email to confirm your account.";
+  }
+}
+
+async function login() {
+  const email = document.getElementById("login_email").value.trim();
+  const password = document.getElementById("login_password").value;
+  const message = document.getElementById("auth_message");
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  const user = data.user;
+  const profile = user.user_metadata || {};
+
+  const { data: existing, error: searchError } = await supabaseClient
+    .from("Clients")
+    .select("id")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (searchError) {
+    message.textContent = searchError.message;
+    return;
+  }
+
+  if (!existing) {
+    const { error: insertError } = await supabaseClient
+      .from("Clients")
+      .insert({
+        user_id: user.id,
+        full_name: profile.full_name || "",
+        phone: profile.phone || "",
+        country: profile.country || ""
+      });
+
+    if (insertError) {
+      message.textContent = insertError.message;
+      return;
+    }
+  }
+
+  message.textContent = "Welcome! You are logged in successfully.";
+          }
+        
+    </script>
+    
 </body>
                                           </html>
