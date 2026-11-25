@@ -537,8 +537,17 @@ Array.from(access.children).forEach(element => {
         }
        supabaseClient.auth.onAuthStateChange((event, session) => {
   if (event === "PASSWORD_RECOVERY") {
-    document.getElementById("client-access").style.display = "none";
-    document.getElementById("reset_password_form").style.display = "block";
+    const access = document.getElementById("client-access");
+    const resetForm = document.getElementById("reset_password_form");
+
+    access.style.display = "block";
+
+    Array.from(access.children).forEach(element => {
+      element.style.display =
+        element.id === "reset_password_form" ? "block" : "none";
+    });
+
+    resetForm.style.display = "block";
   }
 });
 
