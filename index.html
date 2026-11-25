@@ -230,16 +230,48 @@ body.client-logged-in #client_dashboard {
     min-height: 80vh;
     padding: 40px;
     box-sizing: border-box;
+    
+/* HIDE WEBSITE AFTER CLIENT LOGIN */
+body.client-logged-in > :not(#client-access):not(script) {
+    display: none !important;
+}
+
+/* CLIENT ACCESS FULL SCREEN */
+body.client-logged-in #client-access {
+    display: flex !important;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 30px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+    
+/* HIDE LOGIN AND OTHER FORMS */
+body.client-logged-in #client-access > *:not(#client_dashboard) {
+    display: none !important;
+}
+
+/* CLIENT DASHBOARD CONTAINER */
+body.client-logged-in #client_dashboard {
+    display: block !important;
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    min-height: 80vh;
+    padding: 40px;
+    padding-bottom: 100px;
+    box-sizing: border-box;
     text-align: center;
     border: 1px solid #26364a;
     border-radius: 12px;
 }
 
-
-/* CLIENT DASHBOARD FULL SCREEN */
+/* DASHBOARD MENU BUTTON (☰) */
 #menu_toggle {
     position: absolute;
-    top: 25px;
+    top: 20px;
     left: 25px;
     font-size: 28px;
     background: transparent;
@@ -249,6 +281,16 @@ body.client-logged-in #client_dashboard {
     z-index: 1001;
 }
 
+/* CLIENT DASHBOARD TITLE */
+#client_dashboard h1 {
+    position: absolute;
+    top: 25px;
+    left: 80px;
+    margin: 0;
+    text-align: left;
+}
+
+/* DASHBOARD SIDEBAR */
 #dashboard_sidebar {
     position: fixed;
     top: 0;
@@ -263,6 +305,7 @@ body.client-logged-in #client_dashboard {
     text-align: left;
 }
 
+/* SIDEBAR LINKS */
 #dashboard_sidebar a {
     display: block;
     color: white;
@@ -272,40 +315,25 @@ body.client-logged-in #client_dashboard {
     border-radius: 8px;
 }
 
+/* SIDEBAR LINK HOVER */
 #dashboard_sidebar a:hover {
     background: #26364a;
 }
 
+/* SIDEBAR BUTTON */
 #dashboard_sidebar button {
     width: 100%;
     margin-top: 25px;
 }
-#client_dashboard {
-    position: relative;
-    padding-bottom: 100px;
-}
 
-#menu_toggle {
-    position: absolute;
-    top: 20px;
-    left: 25px;
-}
-
-#client_dashboard h1 {
-    position: absolute;
-    top: 25px;
-    left: 80px;
-    margin: 0;
-    text-align: left;
-}
-    
+/* DASHBOARD LOGOUT BUTTON */
 #client_dashboard > button[onclick="logout()"] {
     position: absolute;
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
     width: 160px;
-}
+    }
 </style>
   
 <!-- Start Home Room -->
