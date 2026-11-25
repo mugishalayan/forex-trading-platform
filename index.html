@@ -235,46 +235,6 @@ body.client-logged-in #client_dashboard {
     border-radius: 12px;
 }
 
-/* CLIENT DASHBOARD FULL SCREEN */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    margin: 45px auto;
-    max-width: 950px;
-}
-
-.dashboard-card {
-    padding: 30px;
-    border: 1px solid #26364a;
-    border-radius: 12px;
-    text-align: left;
-    background: #0d1b2d;
-}
-
-.dashboard-card h2 {
-    font-size: 22px;
-    margin-bottom: 15px;
-}
-
-.dashboard-card p {
-    line-height: 1.7;
-    margin-bottom: 20px;
-}
-
-.dashboard-card button {
-    padding: 12px 22px;
-}
-
-.client-profile {
-    margin: 25px 0;
-}
-
-@media (max-width: 650px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-}
 
 /* CLIENT DASHBOARD FULL SCREEN */
 #menu_toggle {
@@ -320,7 +280,18 @@ body.client-logged-in #client_dashboard {
     width: 100%;
     margin-top: 25px;
 }
+#client_dashboard {
+    position: relative;
+    padding-bottom: 100px;
+}
 
+#client_dashboard > button[onclick="logout()"] {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+}
 </style>
   
 <!-- Start Home Room -->
@@ -448,12 +419,12 @@ body.client-logged-in #client_dashboard {
 <button id="menu_toggle" onclick="toggleSidebar()">☰</button>
 
 <div id="dashboard_sidebar" style="display:none;">
-    <h2>MY DASHBOARD</h2>
+    <h2>DASHBOARD</h2>
 
-    <a href="#my_accounts">My Trading Accounts</a>
-    <a href="#my_strategies">My Strategies</a>
-    <a href="#my_performance">My Performance</a>
-    <a href="#my_payments">My Payments</a>
+    <a href="#accounts">Trading Accounts</a>
+    <a href="#strategies">Strategies</a>
+    <a href="#performance">Performance</a>
+    <a href="#payments">Payments</a>
 
     <button onclick="logout()">Logout</button>
 </div>
@@ -466,37 +437,7 @@ body.client-logged-in #client_dashboard {
     <p id="client_name"></p>
     <p id="client_email"></p>
   </div>
-
-  <div class="dashboard-grid">
-
-    <div class="dashboard-card">
-      <h2>My Trading Accounts</h2>
-      <p>Manage your connected MT5 trading accounts.</p>
-      <button>View Accounts</button>
-    </div>
-
-    <div class="dashboard-card">
-      <h2>My Strategies</h2>
-      <p>View and manage your assigned trading strategies.</p>
-      <button>View Strategies</button>
-    </div>
-
-    <div class="dashboard-card">
-      <h2>My Performance</h2>
-      <p>Monitor your trading performance and results.</p>
-      <button>View Performance</button>
-    </div>
-
-    <div class="dashboard-card">
-      <h2>My Payments</h2>
-      <p>View your payment history and commission details.</p>
-      <button>View Payments</button>
-    </div>
-
   </div>
-
-  <button onclick="logout()">Logout</button>
-        </div>
        
         <!-- Reset Password -->
         <div id="reset_password_form" style="display:none;">
