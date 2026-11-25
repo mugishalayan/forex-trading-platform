@@ -444,12 +444,10 @@ body.client-logged-in #client_dashboard {
 </div>
             
   <h1>CLIENT DASHBOARD</h1>
-
-  <p>Welcome to your trading account.</p>
   </div>
-       
-        <!-- Reset Password -->
-        <div id="reset_password_form" style="display:none;">
+
+ <!-- Reset Password -->
+ <div id="reset_password_form" style="display:none;">
   <h3>Reset Password</h3>
 
   <input id="new_password" type="password"
@@ -563,8 +561,6 @@ async function login() {
       return;
     }
   }
-
-  message.textContent = "Welcome! You are logged in successfully.";
 
   document.getElementById("client_dashboard").style.display = "block";
 
