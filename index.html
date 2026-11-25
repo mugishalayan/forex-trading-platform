@@ -470,10 +470,13 @@ document.getElementById("client_name").textContent =
 document.getElementById("client_email").textContent =
   "Email: " + user.email;
 
-document.getElementById("client-access").querySelectorAll(
-  "h3, input, button, hr"
-).forEach(element => {
-  if (element.id !== "client_dashboard") {
+const access = document.getElementById("client-access");
+
+Array.from(access.children).forEach(element => {
+  if (
+    element.id !== "client_dashboard" &&
+    element.id !== "auth_message"
+  ) {
     element.style.display = "none";
   }
 });
