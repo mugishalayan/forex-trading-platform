@@ -375,6 +375,21 @@ footer p {
   <p id="client_email"></p>
   <button onclick="logout()">Logout</button>
         </div>
+        <div id="reset_password_form" style="display:none;">
+  <h3>Reset Password</h3>
+
+  <input id="new_password" type="password"
+    placeholder="Enter New Password">
+
+  <input id="confirm_password" type="password"
+    placeholder="Confirm New Password">
+
+  <button onclick="updatePassword()">
+    Save New Password
+  </button>
+
+  <p id="reset_message"></p>
+        </div>
     </section>
     
     <script>
@@ -520,7 +535,44 @@ Array.from(access.children).forEach(element => {
   message.textContent =
     "Password reset link sent. Please check your email.";
         }
-        
+       supabaseClient.auth.onAuthStateChange((event, session) => {
+  if (event === "PASSWORD_RECOVERY") {
+    document.getElementById("client-access").style.display = "none";
+    document.getElementById("reset_password_form").style.display = "block";
+  }
+});
+
+async function updatePassword() {
+  const password = document.getElementById("new_password").value;
+  const confirmPassword = document.getElementById("confirm_password").value;
+  const message = document.getElementById("reset_message");
+
+  if (!password || !confirmPassword) {
+    message.textContent = "Please fill in both fields.";
+    return;
+  }
+
+  if (password.length < 6) {
+    message.textContent = "Password must be at least 6 characters.";
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    message.textContent = "Passwords do not match.";
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.updateUser({
+    password: password
+  });
+
+  if (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  message.textContent = "Password changed successfully!";
+        } 
     </script>
     
 </body>
