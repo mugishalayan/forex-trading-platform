@@ -361,6 +361,11 @@ footer p {
   <input id="login_email" type="email" placeholder="Email">
   <input id="login_password" type="password" placeholder="Password">
   <button onclick="login()">Login</button>
+        <p>
+  <a href="#" onclick="forgotPassword(); return false;">
+    Forgot Password?
+  </a>
+        </p>
 
   <p id="auth_message"></p>
         <div id="client_dashboard" style="display:none;">
@@ -490,6 +495,30 @@ Array.from(access.children).forEach(element => {
   }
 
   location.reload();
+        }
+        async function forgotPassword() {
+  const email = document.getElementById("login_email").value.trim();
+  const message = document.getElementById("auth_message");
+
+  if (!email) {
+    message.textContent = "Please enter your email first.";
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(
+    email,
+    {
+      redirectTo: "https://forex-trading-platform.mugishalayan.workers.dev/"
+    }
+  );
+
+  if (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  message.textContent =
+    "Password reset link sent. Please check your email.";
         }
         
     </script>
