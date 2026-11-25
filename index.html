@@ -235,6 +235,7 @@ body.client-logged-in #client_dashboard {
     border-radius: 12px;
 }
 
+/* CLIENT DASHBOARD FULL SCREEN */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -274,8 +275,55 @@ body.client-logged-in #client_dashboard {
         grid-template-columns: 1fr;
     }
 }
+
+/* CLIENT DASHBOARD FULL SCREEN */
+#menu_toggle {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    font-size: 28px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+#dashboard_sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: #0d1b2d;
+    border-right: 1px solid #26364a;
+    padding: 80px 20px 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+    text-align: left;
+}
+
+#dashboard_sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+#dashboard_sidebar a:hover {
+    background: #26364a;
+}
+
+#dashboard_sidebar button {
+    width: 100%;
+    margin-top: 25px;
+}
+
 </style>
-    
+  
+// Start Home Room
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
@@ -369,6 +417,7 @@ body.client-logged-in #client_dashboard {
     </p>
 </section>
     
+ // Client Access 
     <section id="client-access">
   <h2>Client Account</h2>
 
@@ -393,8 +442,22 @@ body.client-logged-in #client_dashboard {
         </p>
 
   <p id="auth_message"></p>
-        <div id="client_dashboard" style="display:none;">
 
+        // Open the new Client Dashboard room
+        <div id="client_dashboard" style="display:none;">
+<button id="menu_toggle" onclick="toggleSidebar()">☰</button>
+
+<div id="dashboard_sidebar" style="display:none;">
+    <h2>MY DASHBOARD</h2>
+
+    <a href="#my_accounts">My Trading Accounts</a>
+    <a href="#my_strategies">My Strategies</a>
+    <a href="#my_performance">My Performance</a>
+    <a href="#my_payments">My Payments</a>
+
+    <button onclick="logout()">Logout</button>
+</div>
+            
   <h1>CLIENT DASHBOARD</h1>
 
   <p>Welcome to your trading account.</p>
@@ -434,7 +497,8 @@ body.client-logged-in #client_dashboard {
 
   <button onclick="logout()">Logout</button>
         </div>
-        
+       
+        // Reset Password 
         <div id="reset_password_form" style="display:none;">
   <h3>Reset Password</h3>
 
