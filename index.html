@@ -204,9 +204,7 @@ footer p {
 } 
 
 /* CLIENT DASHBOARD FULL SCREEN */
-body.client-logged-in > header,
-body.client-logged-in > section:not(#client-access),
-body.client-logged-in > footer {
+body.client-logged-in > :not(#client-access):not(script) {
     display: none !important;
 }
 
@@ -214,9 +212,9 @@ body.client-logged-in #client-access {
     display: flex !important;
     min-height: 100vh;
     width: 100%;
-    box-sizing: border-box;
     margin: 0;
-    padding: 30px 20px;
+    padding: 30px;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
 }
@@ -228,14 +226,13 @@ body.client-logged-in #client-access > *:not(#client_dashboard) {
 body.client-logged-in #client_dashboard {
     display: block !important;
     width: 100%;
-    max-width: 1000px;
-    min-height: 500px;
-    margin: auto;
+    max-width: 1100px;
+    min-height: 80vh;
     padding: 40px;
     box-sizing: border-box;
+    text-align: center;
     border: 1px solid #26364a;
     border-radius: 12px;
-    text-align: center;
 }
 </style>
     
@@ -439,60 +436,56 @@ async function login() {
     return;
   }
 
-async function login() {
-    const email = document.getElementById("login_email").value.trim();
-    const password = document.getElementById("login_password").value;
-    const message = document.getElementById("auth_message");
+  const user = data.user;
+  const profile = user.user_metadata || {};
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-    });
+  const { data: existing, error: searchError } = await supabaseClient
+    .from("Clients")
+    .select("id")
+    .eq("user_id", user.id)
+    .maybeSingle();
 
-    if (error) {
-        message.textContent = error.message;
-        return;
+  if (searchError) {
+    message.textContent = searchError.message;
+    return;
+  }
+
+  if (!existing) {
+    const { error: insertError } = await supabaseClient
+      .from("Clients")
+      .insert({
+        user_id: user.id,
+        full_name: profile.full_name || "",
+        phone: profile.phone || "",
+        country: profile.country || ""
+      });
+
+    if (insertError) {
+      message.textContent = insertError.message;
+      return;
     }
+  }
 
-    const user = data.user;
-    const profile = user.user_metadata || {};
+  message.textContent = "Welcome! You are logged in successfully.";
 
-    const { data: existing, error: searchError } = await supabaseClient
-        .from("Clients")
-        .select("id")
-        .eq("user_id", user.id)
-        .maybeSingle();
+  document.getElementById("client_dashboard").style.display = "block";
 
-    if (searchError) {
-        message.textContent = searchError.message;
-        return;
+  document.getElementById("client_name").textContent =
+    "Name: " + (profile.full_name || "Client");
+
+  document.getElementById("client_email").textContent =
+    "Email: " + user.email;
+
+  const access = document.getElementById("client-access");
+
+  Array.from(access.children).forEach(element => {
+    if (element.id !== "client_dashboard") {
+      element.style.display = "none";
     }
+  });
 
-    if (!existing) {
-        const { error: insertError } = await supabaseClient
-            .from("Clients")
-            .insert({
-                user_id: user.id,
-                full_name: profile.full_name || "",
-                phone: profile.phone || "",
-                country: profile.country || ""
-            });
-
-        if (insertError) {
-            message.textContent = insertError.message;
-            return;
-        }
-    }
-
-    document.getElementById("client_name").textContent =
-        "Name: " + (profile.full_name || "Client");
-
-    document.getElementById("client_email").textContent =
-        "Email: " + user.email;
-
-    document.getElementById("client_dashboard").style.display = "block";
-
-    document.getElementById("client_dashboard").style.display = "block";;
+  // Open the new Client Dashboard room
+  document.body.classList.add("client-logged-in");
         }
     
         async function logout() {
