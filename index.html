@@ -568,12 +568,6 @@ async function login() {
 
   document.getElementById("client_dashboard").style.display = "block";
 
-  document.getElementById("client_name").textContent =
-    "Name: " + (profile.full_name || "Client");
-
-  document.getElementById("client_email").textContent =
-    "Email: " + user.email;
-
   const access = document.getElementById("client-access");
 
   Array.from(access.children).forEach(element => {
