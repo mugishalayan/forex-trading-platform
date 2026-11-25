@@ -202,6 +202,41 @@ footer p {
         margin: 7px;
     }
 } 
+
+/* CLIENT DASHBOARD FULL SCREEN */
+body.client-logged-in > header,
+body.client-logged-in > section:not(#client-access),
+body.client-logged-in > footer {
+    display: none !important;
+}
+
+body.client-logged-in #client-access {
+    display: flex !important;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 30px 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+body.client-logged-in #client-access > *:not(#client_dashboard) {
+    display: none !important;
+}
+
+body.client-logged-in #client_dashboard {
+    display: block !important;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 500px;
+    margin: auto;
+    padding: 40px;
+    box-sizing: border-box;
+    border: 1px solid #26364a;
+    border-radius: 12px;
+    text-align: center;
+}
 </style>
     
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -404,56 +439,62 @@ async function login() {
     return;
   }
 
-  const user = data.user;
-  const profile = user.user_metadata || {};
+async function login() {
+    const email = document.getElementById("login_email").value.trim();
+    const password = document.getElementById("login_password").value;
+    const message = document.getElementById("auth_message");
 
-  const { data: existing, error: searchError } = await supabaseClient
-    .from("Clients")
-    .select("id")
-    .eq("user_id", user.id)
-    .maybeSingle();
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+    });
 
-  if (searchError) {
-    message.textContent = searchError.message;
-    return;
-  }
-
-  if (!existing) {
-    const { error: insertError } = await supabaseClient
-      .from("Clients")
-      .insert({
-        user_id: user.id,
-        full_name: profile.full_name || "",
-        phone: profile.phone || "",
-        country: profile.country || ""
-      });
-
-    if (insertError) {
-      message.textContent = insertError.message;
-      return;
+    if (error) {
+        message.textContent = error.message;
+        return;
     }
-  }
 
-  message.textContent = "Welcome! You are logged in successfully.";
+    const user = data.user;
+    const profile = user.user_metadata || {};
 
-document.getElementById("client_dashboard").style.display = "block";
-document.getElementById("client_name").textContent =
-  "Name: " + (profile.full_name || "Client");
+    const { data: existing, error: searchError } = await supabaseClient
+        .from("Clients")
+        .select("id")
+        .eq("user_id", user.id)
+        .maybeSingle();
 
-document.getElementById("client_email").textContent =
-  "Email: " + user.email;
+    if (searchError) {
+        message.textContent = searchError.message;
+        return;
+    }
 
-const access = document.getElementById("client-access");
+    if (!existing) {
+        const { error: insertError } = await supabaseClient
+            .from("Clients")
+            .insert({
+                user_id: user.id,
+                full_name: profile.full_name || "",
+                phone: profile.phone || "",
+                country: profile.country || ""
+            });
 
-Array.from(access.children).forEach(element => {
-  if (
-    element.id !== "client_dashboard" &&
-    element.id !== "auth_message"
-  ) {
-    element.style.display = "none";
-  }
-});
-}   
+        if (insertError) {
+            message.textContent = insertError.message;
+            return;
+        }
+    }
+
+    document.getElementById("client_name").textContent =
+        "Name: " + (profile.full_name || "Client");
+
+    document.getElementById("client_email").textContent =
+        "Email: " + user.email;
+
+    document.getElementById("client_dashboard").style.display = "block";
+
+    document.body.classList.add("client-logged-in");
+        }
+    
         async function logout() {
   const { error } = await supabaseClient.auth.signOut();
 
