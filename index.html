@@ -462,7 +462,32 @@ async function login() {
   }
 
   message.textContent = "Welcome! You are logged in successfully.";
-          }
+
+document.getElementById("client_dashboard").style.display = "block";
+document.getElementById("client_name").textContent =
+  "Name: " + (profile.full_name || "Client");
+
+document.getElementById("client_email").textContent =
+  "Email: " + user.email;
+
+document.getElementById("client-access").querySelectorAll(
+  "h3, input, button, hr"
+).forEach(element => {
+  if (element.id !== "client_dashboard") {
+    element.style.display = "none";
+  }
+});
+}   
+        async function logout() {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  location.reload();
+        }
         
     </script>
     
