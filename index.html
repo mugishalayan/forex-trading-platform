@@ -234,6 +234,46 @@ body.client-logged-in #client_dashboard {
     border: 1px solid #26364a;
     border-radius: 12px;
 }
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 45px auto;
+    max-width: 950px;
+}
+
+.dashboard-card {
+    padding: 30px;
+    border: 1px solid #26364a;
+    border-radius: 12px;
+    text-align: left;
+    background: #0d1b2d;
+}
+
+.dashboard-card h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.dashboard-card p {
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.dashboard-card button {
+    padding: 12px 22px;
+}
+
+.client-profile {
+    margin: 25px 0;
+}
+
+@media (max-width: 650px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
     
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -354,12 +394,47 @@ body.client-logged-in #client_dashboard {
 
   <p id="auth_message"></p>
         <div id="client_dashboard" style="display:none;">
-  <h2>Client Dashboard</h2>
-  <p>Welcome to your account!</p>
-  <p id="client_name"></p>
-  <p id="client_email"></p>
+
+  <h1>CLIENT DASHBOARD</h1>
+
+  <p>Welcome to your trading account.</p>
+
+  <div class="client-profile">
+    <p id="client_name"></p>
+    <p id="client_email"></p>
+  </div>
+
+  <div class="dashboard-grid">
+
+    <div class="dashboard-card">
+      <h2>My Trading Accounts</h2>
+      <p>Manage your connected MT5 trading accounts.</p>
+      <button>View Accounts</button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>My Strategies</h2>
+      <p>View and manage your assigned trading strategies.</p>
+      <button>View Strategies</button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>My Performance</h2>
+      <p>Monitor your trading performance and results.</p>
+      <button>View Performance</button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>My Payments</h2>
+      <p>View your payment history and commission details.</p>
+      <button>View Payments</button>
+    </div>
+
+  </div>
+
   <button onclick="logout()">Logout</button>
         </div>
+        
         <div id="reset_password_form" style="display:none;">
   <h3>Reset Password</h3>
 
