@@ -203,7 +203,7 @@ footer p {
     }
 } 
 
-/* CLIENT DASHBOARD FULL SCREEN */
+/* CLIENT LOGIN NEW DASHBOARD FULL SCREEN */
 body.client-logged-in > :not(#client-access):not(script) {
     display: none !important;
 }
@@ -285,6 +285,20 @@ body.client-logged-in #client_dashboard {
     padding-bottom: 100px;
 }
 
+#menu_toggle {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+}
+
+#client_dashboard h1 {
+    position: absolute;
+    top: 25px;
+    left: 80px;
+    margin: 0;
+    text-align: left;
+}
+    
 #client_dashboard > button[onclick="logout()"] {
     position: absolute;
     bottom: 25px;
@@ -432,11 +446,6 @@ body.client-logged-in #client_dashboard {
   <h1>CLIENT DASHBOARD</h1>
 
   <p>Welcome to your trading account.</p>
-
-  <div class="client-profile">
-    <p id="client_name"></p>
-    <p id="client_email"></p>
-  </div>
   </div>
        
         <!-- Reset Password -->
